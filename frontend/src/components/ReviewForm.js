@@ -41,9 +41,6 @@ function ReviewForm({
     handleReview(newReview)
   }
 
-    console.log(boardGameId)
-
-
   return (
     <div className="container mt-5">
       <h2>Add a Review</h2>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom"
 import { useUser } from "../context/UserContext"
 import { loginUser } from "../services/fetchers"
 
@@ -7,7 +7,7 @@ function Login() {
   const { setUser } = useUser()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -15,7 +15,7 @@ function Login() {
       if (data.success) {
         setUser(data.user)
         localStorage.setItem("userId", JSON.stringify(data.user))
-        navigate('/board_games')
+        navigate("/board_games")
       } else {
         alert(data.message)
       }
@@ -27,7 +27,7 @@ function Login() {
     const user = savedUser ? JSON.parse(savedUser) : null
     if (user) {
       setUser(user)
-      navigate('/board_games')
+      navigate("/board_games")
     }
   }, [])
 
@@ -47,7 +47,7 @@ function Login() {
                   id="username"
                   placeholder="Enter your username"
                   value={username}
-                  onChange={event => setUsername(event.target.value)}
+                  onChange={(event) => setUsername(event.target.value)}
                 />
               </div>
               <div className="form-group mb-4">
@@ -58,14 +58,14 @@ function Login() {
                   id="password"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
               <button type="submit" className="btn btn-primary w-100">
                 Login
               </button>
             </form>
-              <Link to="/create_user">Sign up</Link>
+            <Link to="/create_user">Sign up</Link>
           </div>
         </div>
       </div>

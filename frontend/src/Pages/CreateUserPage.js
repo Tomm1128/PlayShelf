@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createUser } from "../services/fetchers"
+import { createUser, loginUser } from "../services/fetchers"
 import { useUser } from "../context/UserContext"
 
 const initialValues = {
@@ -24,9 +24,17 @@ function CreateUserPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    createUser(formData)
-      .then((user) => setUser(user.id))
-      .then((_date) => navigate("/board_games"))
+    createUser(formData).then((user) => {
+      loginUser(user.username, user.password).then((data) => {
+        if (data.success) {
+          setUser(data.user)
+          localStorage.setItem("userId", JSON.stringify(data.user))
+          navigate("/board_games")
+        } else {
+          alert(data.message)
+        }
+      })
+    })
   }
 
   return (
