@@ -34,7 +34,8 @@ class ApplicationController < Sinatra::Base
 
   get "/users/:id" do
     user = User.find(params[:id])
-    user.to_json
+    board_games = Collection.user_collection(params[:id])
+    { user: user, board_games: board_games }.to_json
   end
 
   post "/users" do
