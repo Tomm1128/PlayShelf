@@ -70,7 +70,7 @@ function BoardGameDetailsPage() {
             <p className="lead">{boardGameData.description}</p>
             <div className="rating">
               <strong>Rating: </strong>
-              {boardGameData.rating} / 5
+              {boardGameData.average_rating} / 5
             </div>
             <hr />
             <div className="reviews">
