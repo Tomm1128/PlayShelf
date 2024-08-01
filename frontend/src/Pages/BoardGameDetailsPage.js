@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useUser } from "../context/UserContext"
 import { createReview, getBoardGameData } from "../services/fetchers"
 import ReviewBlock from "../components/ReviewBlock"
@@ -12,6 +12,7 @@ function BoardGameDetailsPage() {
   const [boardGameData, setBoardGameData] = useState(null)
   const [reviews, setReviews] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const navigate = useNavigate()
 
   const fetchBoardGameData = () => {
     getBoardGameData(params.index).then((boardGameData) => {
@@ -27,6 +28,8 @@ function BoardGameDetailsPage() {
     const user = savedUser ? JSON.parse(savedUser) : null
     if (user) {
       setUser(user)
+    } else {
+      navigate("/")
     }
   }, [])
 

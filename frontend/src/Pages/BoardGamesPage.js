@@ -3,10 +3,12 @@ import { useUser } from "../context/UserContext"
 import BoardGameCard from "../components/BoardGameCard"
 import { getAllBoardGames } from "../services/fetchers"
 import NavBar from "../components/NavBar"
+import { useNavigate } from "react-router-dom"
 
 function BoardGamePage() {
   const { setUser } = useUser()
   const [boardGames, setBoardGames] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAllBoardGames().then(boardGamesList => setBoardGames(boardGamesList))
@@ -17,6 +19,8 @@ function BoardGamePage() {
     const user = savedUser ? JSON.parse(savedUser) : null
     if (user) {
       setUser(user)
+    } else {
+      navigate("/")
     }
   }, [])
 
