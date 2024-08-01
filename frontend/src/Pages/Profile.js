@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar"
 import { useUser } from "../context/UserContext"
-import { createCollection, getUser, updateCollection } from "../services/fetchers"
+import {
+  createCollection,
+  getUser,
+  updateCollection,
+} from "../services/fetchers"
 import { useNavigate } from "react-router-dom"
 import AddToCollection from "../components/AddToCollection"
 
@@ -33,9 +37,9 @@ function Profile() {
   }
 
   const makeCollection = () => {
-     createCollection(user).then(collection => {
+    createCollection(user).then((collection) => {
       setCollection(collection)
-     })
+    })
   }
 
   const boardGameCollection = () => {
@@ -48,7 +52,10 @@ function Profile() {
       )
     } else {
       return (
-        <AddToCollection collection={collection} setCollection={setCollection}/>
+        <AddToCollection
+          collection={collection}
+          setCollection={setCollection}
+        />
       )
     }
   }

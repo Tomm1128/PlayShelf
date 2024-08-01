@@ -50,7 +50,7 @@ const updateReview = (review) => {
 
 const deleteReview = (review) => {
   return fetch(urlReview + "/" + review.id, {
-    method: "DELETE"
+    method: "DELETE",
   }).then((resp) => resp.json())
 }
 
@@ -58,7 +58,7 @@ const createCollection = (user_id) => {
   return fetch(urlCollection, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({user_id}),
+    body: JSON.stringify({ user_id }),
   }).then((resp) => resp.json())
 }
 
@@ -80,5 +80,5 @@ export {
   updateReview,
   deleteReview,
   createCollection,
-  updateCollection
+  updateCollection,
 }

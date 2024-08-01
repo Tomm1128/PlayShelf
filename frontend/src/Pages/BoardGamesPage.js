@@ -11,8 +11,8 @@ function BoardGamePage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getAllBoardGames().then(boardGamesList => setBoardGames(boardGamesList))
-  },[])
+    getAllBoardGames().then((boardGamesList) => setBoardGames(boardGamesList))
+  }, [])
 
   useEffect(() => {
     const savedUser = localStorage.getItem("userId")
@@ -24,7 +24,7 @@ function BoardGamePage() {
     }
   }, [])
 
-  if(!boardGames){
+  if (!boardGames) {
     return (
       <div>
         <h1 className="board-games-header">Board Games</h1>
@@ -33,21 +33,19 @@ function BoardGamePage() {
     )
   }
 
-  const boardGameCards = boardGames.map(boardGame => {
-    return <BoardGameCard key={boardGame.id} boardGame={boardGame}/>
+  const boardGameCards = boardGames.map((boardGame) => {
+    return <BoardGameCard key={boardGame.id} boardGame={boardGame} />
   })
 
-  return(
+  return (
     <div>
       <NavBar />
       <div className="container">
-      <header className="my-4">
-        <h1 className="text-center">Board Games</h1>
-      </header>
-      <div className="row row-cols-1 row-cols-md-2 g-4">
-      { boardGameCards }
+        <header className="my-4">
+          <h1 className="text-center">Board Games</h1>
+        </header>
+        <div className="row row-cols-1 row-cols-md-2 g-4">{boardGameCards}</div>
       </div>
-    </div>
     </div>
   )
 }
