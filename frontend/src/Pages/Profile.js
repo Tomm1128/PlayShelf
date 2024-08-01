@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar"
 import { useUser } from "../context/UserContext"
-import { getUser } from "../services/fetchers"
+import { createCollection, getUser, updateCollection } from "../services/fetchers"
 import { useNavigate } from "react-router-dom"
-import BoardGameCard from "../components/BoardGameCard"
+import AddToCollection from "../components/AddToCollection"
 
 function Profile() {
-  const { setUser } = useUser()
+  const { user, setUser } = useUser()
   const [userData, setUserData] = useState(null)
+  const [collection, setCollection] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -17,7 +18,8 @@ function Profile() {
       if (user) {
         setUser(user)
         const userResp = await getUser(user)
-        setUserData(userResp)
+        setUserData(userResp.user)
+        setCollection(userResp.collection)
       } else {
         navigate("/")
       }
@@ -26,17 +28,28 @@ function Profile() {
     fetchUser()
   }, [setUser])
 
-  if (!userData) {
+  if (!userData || !collection) {
     return <h1>Loading...</h1>
   }
 
+  const makeCollection = () => {
+     createCollection(user).then(collection => {
+      setCollection(collection)
+     })
+  }
+
   const boardGameCollection = () => {
-    if(userData.board_games === "No board games"){
-      return <h3>No board games in collection</h3>
+    if (collection == "No collection for user") {
+      return (
+        <div>
+          <h3>No board games in collection</h3>
+          <button onClick={makeCollection}>Create Collection</button>
+        </div>
+      )
     } else {
-      return userData.board_games.map((boardGame) => {
-        return <BoardGameCard key={boardGame.id} boardGame={boardGame} />
-      })
+      return (
+        <AddToCollection collection={collection} setCollection={setCollection}/>
+      )
     }
   }
 
@@ -47,11 +60,11 @@ function Profile() {
         <h2 className="text-center">Profile</h2>
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Username: {userData.user.username}</h5>
+            <h5 className="card-title">Username: {userData.username}</h5>
           </div>
         </div>
       </div>
-      <div>
+      <div className="collection-section">
         <h2>Board Game Collection</h2>
         {boardGameCollection()}
       </div>
