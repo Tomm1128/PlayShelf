@@ -17,7 +17,8 @@ bundle install
 ```
 
 ```sh
-bundle exec rake db:migrate:seed
+bundle exec rake db:migrate
+bundle exec rake db:seed
 ```
 Now cd out of backend back to root and cd into the frontend. Then run the following commands in order:
 
