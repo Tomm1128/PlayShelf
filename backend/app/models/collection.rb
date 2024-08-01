@@ -5,10 +5,10 @@ class Collection < ActiveRecord::Base
 
   def self.user_collection(id)
     collection = Collection.find_by(user_id: id)
-    if(collection)
-      collection.board_games
+    if collection
+      { collection_id: collection.id, board_games: collection.board_games }
     else
-      "No board games"
+      "No collection for user"
     end
   end
 end
