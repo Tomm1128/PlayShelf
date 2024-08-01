@@ -2,6 +2,7 @@ const urlBoardGames = "http://localhost:9292/board_games/"
 const urlLogin = "http://localhost:9292/login"
 const urlUser = "http://localhost:9292/users"
 const urlReview = "http://localhost:9292/reviews"
+const urlCollection = "http://localhost:9292/collections"
 
 const getAllBoardGames = () => {
   return fetch(urlBoardGames).then((resp) => resp.json())
@@ -53,6 +54,22 @@ const deleteReview = (review) => {
   }).then((resp) => resp.json())
 }
 
+const createCollection = (user_id) => {
+  return fetch(urlCollection, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({user_id}),
+  }).then((resp) => resp.json())
+}
+
+const updateCollection = (updatedCollection) => {
+  return fetch(urlCollection + "/" + updatedCollection.collection_id, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedCollection),
+  }).then((resp) => resp.json())
+}
+
 export {
   getAllBoardGames,
   getBoardGameData,
@@ -61,5 +78,7 @@ export {
   getUser,
   createReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  createCollection,
+  updateCollection
 }
