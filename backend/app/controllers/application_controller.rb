@@ -13,7 +13,11 @@ class ApplicationController < Sinatra::Base
 
   get "/board_games/:id" do
     board_game = BoardGame.find(params[:id])
-    board_game.to_json(include: { reviews: { include: :user } })
+    rating_average = board_game.average_rating
+    board_game_json = board_game.as_json(include: { reviews: { include: :user } })
+    board_game_json[:average_rating] = rating_average
+
+    board_game_json.to_json
   end
 
   get "/board_games/:id/reviews" do
