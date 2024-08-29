@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Collection, type: :model do
   describe 'associations' do
-    it 'has belongs to' do
+    it 'has belongs to user' do
       association = Collection.reflect_on_association(:user)
       expect(association.macro).to eq(:belongs_to)
     end
